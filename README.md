@@ -1,28 +1,32 @@
-# GymUnity TAIYO AI Agent System
+# 🏋️ GymUnity TAIYO AI Agent System
 
-TAIYO is a multi-agent AI system built for **GymUnity** using **Azure AI Foundry**.
+TAIYO is a multi-agent AI system designed for **GymUnity**, a fitness platform that connects members, coaches, sellers, and admin operations.
 
-The goal of this project is to move beyond a basic chatbot and design a structured AI operating layer for fitness, coaching, nutrition, store recommendations, safety, and admin operations.
+The goal of this project is to explore how AI can support a fitness app beyond a basic chatbot by using specialized agents, safety rules, knowledge grounding, and structured outputs.
 
----
-
-## Project Overview
-
-GymUnity is a multi-role fitness platform that includes members, coaches, sellers, and admin operations.
-
-TAIYO is designed as an AI layer that can:
-
-- Generate daily member fitness briefs
-- Provide nutrition guidance
-- Draft workout plans
-- Review recommendations for safety
-- Help coaches summarize client status
-- Recommend store products based on member context
-- Assist admins with payment and operational issues
+> Current status: Azure AI Foundry agent system MVP completed and tested with sample scenarios. Supabase and Flutter integration are planned as the next phases.
 
 ---
 
-## Architecture
+## 📌 Project Idea
+
+Most fitness apps use AI as a simple chat feature.
+
+In this project, TAIYO is designed as a more structured AI layer that can help with:
+
+- Daily member fitness guidance
+- Nutrition support
+- Workout plan drafting
+- Safety and recovery checks
+- Coach client summaries
+- Store product recommendations
+- Admin and payment-operation support
+
+The system is built around an Orchestrator Agent that routes each request to the most relevant specialized agent.
+
+---
+
+## 🧠 System Architecture
 
 ```mermaid
 flowchart TD
@@ -37,7 +41,7 @@ flowchart TD
     C --> I[Store Recommendation Agent]
     C --> J[Admin Ops Agent]
 
-    C --> K[Knowledge Base and File Search]
+    C --> K[Knowledge Base]
     B --> L[Supabase Database]
 
     D --> C
@@ -55,56 +59,56 @@ flowchart TD
 
 ---
 
-## Main Components
+## 🤖 Agents
 
-### 1. TAIYO Orchestrator Agent
+### TAIYO Orchestrator Agent
 
-The Orchestrator is responsible for understanding the request, selecting the correct specialized agents, applying routing rules, and returning one final structured JSON response.
+The Orchestrator is the main coordinator of the system.
 
-### 2. Specialized Agents
+It is responsible for:
 
-The system includes the following agents:
+- Understanding the request type
+- Selecting the right specialized agent or agents
+- Applying routing and safety rules
+- Returning a structured JSON response
 
-- TAIYO Member Fitness Agent
-- TAIYO Nutrition Agent
-- TAIYO Workout Planner Agent
-- TAIYO Safety and Recovery Agent
-- TAIYO Coach Copilot Agent
-- TAIYO Store Recommendation Agent
-- TAIYO Admin Ops Agent
+### Specialized Agents
 
-### 3. Knowledge Grounding
+The system currently includes:
 
-The Orchestrator uses a knowledge base that includes:
+| Agent | Purpose |
+| --- | --- |
+| **Member Fitness Agent** | Generates daily fitness recommendations based on member context |
+| **Nutrition Agent** | Provides general nutrition guidance based on goals and logs |
+| **Workout Planner Agent** | Drafts workout plan structures and adjustments |
+| **Safety and Recovery Agent** | Reviews risky cases and prevents unsafe recommendations |
+| **Coach Copilot Agent** | Helps coaches understand client status with privacy checks |
+| **Store Recommendation Agent** | Suggests products based on fitness context and catalog availability |
+| **Admin Ops Agent** | Helps explain payment, subscription, and operational issues |
 
-- Safety rules
-- Training rules
+---
+
+## 📚 Knowledge Grounding
+
+TAIYO uses a knowledge base to keep the agents aligned with GymUnity rules.
+
+The knowledge base includes:
+
+- Fitness safety rules
+- Training adjustment rules
 - Nutrition guidance
 - Workout planning rules
 - Coach Copilot rules
 - Store recommendation rules
 - Admin Ops rules
 - GymUnity app FAQ
-- Orchestrator routing cheatsheet
+- Orchestrator routing notes
 
-### 4. Supabase Context Layer
+The knowledge base is used for static rules only. Live user data will come from Supabase.
 
-Supabase will provide live user data to the agents through secure Edge Functions.
+---
 
-Examples of live data:
-
-- Member readiness
-- Sleep
-- Workout history
-- Nutrition logs
-- Hydration logs
-- Coach visibility settings
-- Product catalog
-- Payment and subscription status
-
-### 5. Flutter UI Layer
-
-Flutter will not call Azure directly.
+## 🔐 Data Flow
 
 The planned production flow is:
 
@@ -117,31 +121,53 @@ Flutter App
 → Flutter UI Cards
 ```
 
+Flutter will not call Azure directly.
+
+Supabase is responsible for:
+
+- Authentication
+- Role checks
+- Privacy rules
+- Context building
+- Database access
+- Logging and rate limiting
+
+Azure AI Foundry is responsible for:
+
+- Agent reasoning
+- Routing
+- Knowledge grounding
+- Safety-aware responses
+- Structured output generation
+
 ---
 
-## Current Status
+## ✅ Current Progress
 
-The Azure AI Foundry MVP has been completed.
-
-Completed work:
+Completed so far:
 
 - Azure AI Foundry project created
-- Model deployment created
-- Orchestrator Agent created
+- Model deployment configured
+- TAIYO Orchestrator Agent created
 - Specialized agents created
-- Connected agents configured
+- Connected agents added to the Orchestrator
 - Knowledge base uploaded
-- Safety and routing rules tested
-- Store missing-catalog behavior tested
-- Coach visibility permission behavior tested
-- Admin Ops payment-risk logic tested
-- Structured JSON output tested
+- Routing rules tested
+- Safety cases tested
+- Store catalog-missing behavior tested
+- Coach visibility-permission behavior tested
+- Admin payment-risk case tested
+- JSON response structure tested
+
+This is currently an AI architecture MVP, not a fully deployed production system yet.
 
 ---
 
-## Tested Scenarios
+## 🧪 Tested Scenarios
 
-### Store Recommendation Without Product Catalog
+### 1. Store Recommendation Without Product Catalog
+
+When the product catalog is missing, the system should not invent products.
 
 Expected behavior:
 
@@ -155,7 +181,11 @@ Expected behavior:
 }
 ```
 
-### Coach Client Brief Without Visibility Permission
+---
+
+### 2. Coach Client Brief Without Visibility Permission
+
+When coach visibility permission is not confirmed, the system should not summarize private client data.
 
 Expected behavior:
 
@@ -166,9 +196,11 @@ Expected behavior:
 }
 ```
 
-### Safety Red Flag Case
+---
 
-For symptoms such as chest pain and dizziness, TAIYO should block training recommendations and escalate the case as high risk.
+### 3. Safety Red Flag Case
+
+For symptoms such as chest pain and dizziness, the system should block training recommendations and escalate the case.
 
 Expected behavior:
 
@@ -179,9 +211,11 @@ Expected behavior:
 }
 ```
 
-### Admin Ops Payment Risk Case
+---
 
-For a paid Paymob transaction with a subscription still in `checkout_pending`, TAIYO recommends admin reconciliation.
+### 4. Admin Ops Payment Risk Case
+
+For a successful payment where the subscription is still not active, the system should recommend admin reconciliation.
 
 Expected behavior:
 
@@ -194,12 +228,12 @@ Expected behavior:
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - Azure AI Foundry
-- GPT-4o deployment
 - Azure AI Agents
-- Knowledge and File Search
+- GPT-4o deployment
+- Knowledge / File Search
 - Supabase
 - Supabase Edge Functions
 - Flutter
@@ -207,7 +241,7 @@ Expected behavior:
 
 ---
 
-## Roadmap
+## 🗺️ Roadmap
 
 ### Phase 1 — Azure AI Foundry Agent System
 
@@ -215,44 +249,28 @@ Status: Completed as MVP.
 
 ### Phase 2 — Supabase Context Builder Design
 
-Next step.
-
-Goal: define exactly what live data each agent needs and map it to Supabase tables and RPCs.
+Define what live data each agent needs and map it to Supabase tables and RPCs.
 
 ### Phase 3 — Supabase Edge Functions
 
-Goal: build secure backend functions that prepare context and call Azure.
+Build secure backend functions that prepare user context and call Azure.
 
-### Phase 4 — Azure Actions and OpenAPI Tools
+### Phase 4 — Azure Actions / OpenAPI Tools
 
-Goal: allow Azure agents to call Supabase context functions.
+Allow Azure agents to call Supabase context functions when needed.
 
 ### Phase 5 — Flutter Integration
 
-Goal: display TAIYO responses inside GymUnity as clean UI cards.
+Render TAIYO responses inside the GymUnity app using clean UI cards.
 
-### Phase 6 — Evaluation and Demo Preparation
+### Phase 6 — Evaluation and Demo
 
-Goal: create test cases, screenshots, and a final graduation-project demo.
-
----
-
-## Important Security Notes
-
-This repository does not include:
-
-- Azure API keys
-- Supabase service role keys
-- Paymob secrets
-- Private user data
-- Real member or coach records
-
-All sensitive values should be stored in environment variables or secure backend secrets.
+Prepare test cases, screenshots, demo flows, and graduation-project presentation material.
 
 ---
 
-## Project Goal
+## 🎯 Project Goal
 
-The goal of TAIYO is to demonstrate how a fitness application can use a multi-agent AI architecture instead of a basic chatbot.
+The goal of TAIYO is to demonstrate how a fitness app can use a multi-agent AI architecture in a practical and safe way.
 
-TAIYO is designed to act as a secure, structured, and privacy-aware AI operating layer inside GymUnity.
+Instead of relying on one general chatbot, the system separates responsibilities between specialized agents and uses structured outputs that can later be connected to Supabase and Flutter.
