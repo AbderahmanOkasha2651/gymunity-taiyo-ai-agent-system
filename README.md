@@ -26,6 +26,19 @@ The system is built around an Orchestrator Agent that routes each request to the
 
 ---
 
+
+## 📂 Documentation
+
+| File | Description |
+| --- | --- |
+| [Architecture](docs/architecture.md) | Explains the high-level system architecture and data flow |
+| [Agents Overview](docs/agents.md) | Describes the Orchestrator and specialized agents |
+| [Testing](docs/testing.md) | Summarizes the main MVP test scenarios |
+| [Roadmap](docs/roadmap.md) | Shows the current progress and upcoming phases |
+| [Supabase Integration Plan](docs/supabase-integration-plan.md) | Explains the planned backend integration with Supabase |
+
+---
+
 ## 🧠 System Architecture
 
 ```mermaid
