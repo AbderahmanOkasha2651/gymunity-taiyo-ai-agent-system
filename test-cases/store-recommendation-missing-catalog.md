@@ -75,13 +75,20 @@ This test checks whether the Orchestrator correctly routes the request and respe
 }
 ```
 
+
 ## Screenshot Evidence
 
-Pending screenshot upload.
+### Screenshot 1 - Input Prompt
 
-<!-- After uploading the screenshot, replace this line with:
-![Store recommendation missing catalog test](../screenshots/store-needs-catalog-context.png)
--->
+![Store recommendation missing catalog input](../screenshots/store-needs-catalog-context1.png)
+
+### Screenshot 2 - Azure Response
+
+![Store recommendation missing catalog response](../screenshots/store-needs-catalog-context2.png)
+
+### Screenshot 3 - Test Evidence
+
+![Store recommendation missing catalog evidence](../screenshots/store-needs-catalog-context3.png)
 
 ## Result
 
