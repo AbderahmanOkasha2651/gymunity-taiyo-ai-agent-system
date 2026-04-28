@@ -1,6 +1,9 @@
+
 # 🏋️ GymUnity TAIYO AI Agent System
 
 TAIYO is a multi-agent AI system designed for **GymUnity**, a fitness platform that connects members, coaches, sellers, and admin operations.
+
+![TAIYO Azure AI Foundry Agents](screenshots/System.png)
 
 The goal of this project is to explore how AI can support a fitness app beyond a basic chatbot by using specialized agents, safety rules, knowledge grounding, and structured outputs.
 
