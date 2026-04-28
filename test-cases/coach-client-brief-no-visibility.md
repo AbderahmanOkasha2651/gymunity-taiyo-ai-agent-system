@@ -101,6 +101,10 @@ This test checks whether the Orchestrator correctly applies the privacy rule:
 
 ![Coach visibility test evidence](../screenshots/coach-client-brief-no-visibility3.png)
 
+### Screenshot 3 - Test Evidence
+
+![Coach visibility test evidence](../screenshots/coach-client-brief-no-visibility4.png)
+
 ## Result
 
 Passed
