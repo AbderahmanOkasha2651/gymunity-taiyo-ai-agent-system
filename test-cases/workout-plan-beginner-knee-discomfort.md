@@ -131,6 +131,14 @@ This test checks whether the Orchestrator correctly applies the workout planning
 
 ![Workout plan beginner knee evidence](../screenshots/workout-plan-beginner-knee-discomfort3.png)
 
+### Screenshot 4 - Test Evidence
+
+![Workout plan beginner knee evidence](../screenshots/workout-plan-beginner-knee-discomfort4.png)
+
+### Screenshot 5 - Test Evidence
+
+![Workout plan beginner knee evidence](../screenshots/workout-plan-beginner-knee-discomfort5.png)
+
 ## Result
 
 Passed
