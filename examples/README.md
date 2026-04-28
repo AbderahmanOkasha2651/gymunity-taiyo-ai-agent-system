@@ -1,12 +1,15 @@
 # Examples
 
-This folder contains practical examples for using or connecting to the TAIYO AI Agent System.
+This folder contains practical integration examples for the GymUnity TAIYO AI Agent System.
 
-Planned examples:
+These examples are focused on how backend services can connect to or call the TAIYO Orchestrator Agent.
 
-- Python SDK example for calling the TAIYO Orchestrator Agent
-- Sample request for a daily member brief
-- Sample request for a coach client brief
-- Sample request for a store recommendation
-- Sample Supabase Edge Function flow
-- Sample structured JSON response
+## Current Examples
+
+| Example | File | Purpose |
+| --- | --- | --- |
+| Python Orchestrator SDK Example | `run-orchestrator-python.md` | Shows how a backend service can call the TAIYO Orchestrator Agent using the Azure AI Foundry Python SDK. |
+
+## Notes
+
+Detailed agent behavior tests are documented separately in the `test-cases/` folder.
